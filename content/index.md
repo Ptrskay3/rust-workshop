@@ -11,7 +11,7 @@ count: false
 ]
 
 .me[.grey[**Leéh Péter**]]
-.citation[`TODO:github here`]
+.citation[`https://github.com/Ptrskay3/rust-workshop`]
 
 ---
 
