@@ -1,0 +1,362 @@
+@import url(https://fonts.googleapis.com/css?family=Fraunces);
+@import url(https://fonts.googleapis.com/css?family=JetBrains+Mono);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,800,700,300,300italic,600,400italic,600italic,700italic,800italic);
+@import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  width: 1920px;
+  height: 1080px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Fraunces';
+  font-weight: normal;
+}
+
+.remark-code,
+.remark-inline-code {
+  font-family: 'JetBrains Mono';
+}
+.remark-code {
+  font-size: 17px;
+  line-height: 150%;
+}
+.remark-slide-content {
+  font-size: 25px;
+  padding: 0em 2em 0em 2em;
+}
+
+blockquote {
+  /* font: 14px/22px normal helvetica, sans-serif;*/
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 50px;
+  padding-left: 15px;
+  border-left: 7px solid #ccc;
+}
+
+.grey {
+  color: grey;
+}
+.grey a {
+  color: grey;
+}
+.font500 {
+  font-size: 500%;
+}
+.font300 {
+  font-size: 300%;
+}
+.font150 {
+  font-size: 150%;
+}
+.moderate {
+  font-size: 80%;
+}
+.mid {
+  font-size: 70%;
+}
+
+.small {
+  font-size: 60%;
+}
+.smaller {
+  font-size: 50%;
+}
+ul {
+  line-height: 150%;
+}
+li ul {
+  font-size: 90%;
+}
+h2 {
+  margin-bottom: -20px;
+}
+img {
+  margin-top: 1rem;
+  max-width: 100%;
+  max-height: 32rem;
+}
+.horizontal-space {
+  margin-left: 1em;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+}
+th {
+  text-align: center;
+  border-bottom: 1px solid black;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+th:first-child {
+  text-align: left;
+}
+td {
+  text-align: center;
+}
+td:first-child {
+  text-align: left;
+}
+pre {
+  text-align: left;
+}
+td pre {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.remark-notes-current-area {
+  font-size: 1.5em;
+}
+.remark-slide-number {
+  font-size: 0.6em;
+}
+#slide-title .remark-slide-number {
+  display: none;
+}
+.small-slide {
+  font-size: 25px;
+}
+.small-slide p {
+  -webkit-margin-before: 0.5em;
+  -webkit-margin-after: 0.5em;
+}
+
+.lessthanamonth {
+  position: absolute;
+  top: 460px;
+  left: 450px;
+  width: 50px;
+  transform: rotate(270deg);
+}
+
+.lessthanayear {
+  position: absolute;
+  top: 460px;
+  left: 570px;
+  width: 50px;
+  transform: rotate(270deg);
+}
+
+.notproductive {
+  position: absolute;
+  top: 475px;
+  left: 240px;
+  width: 50px;
+  transform: rotate(270deg);
+}
+
+.fewmonths {
+  position: absolute;
+  top: 550px;
+  left: 325px;
+  width: 50px;
+  transform: rotate(270deg);
+}
+
+.neverproductive {
+  position: absolute;
+  top: 550px;
+  left: 750px;
+  width: 50px;
+  transform: rotate(270deg);
+}
+
+@page {
+  size: 908px 681px;
+  margin: 0;
+}
+
+@media print {
+  .remark-slide-scaler {
+    width: 100% !important;
+    height: 100% !important;
+    transform: scale(1) !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+}
+
+.rust-means {
+  display: block;
+  position: absolute;
+  text-align: left;
+  margin-left: 3rem;
+  margin-top: -15rem;
+  color: grey;
+  font-size: 2rem;
+}
+
+.rust-means::before {
+  background-image: url('content/images/rust-logo-blk.svg');
+  background-size: 4rem 4rem;
+  display: block;
+  position: absolute;
+  width: 4rem;
+  height: 4rem;
+  content: '';
+  margin-left: -4rem;
+  margin-top: -0.5rem;
+}
+
+.float-right {
+  float: right;
+}
+
+mark,
+.mark {
+  background-color: rgba(255, 255, 0, 0.5);
+}
+
+.extra-spacing ul {
+  line-height: 180%;
+}
+
+.extra-spacing ul li ul {
+  line-height: 150%;
+}
+
+.hidden {
+  display: none;
+}
+
+.no-hide .hidden {
+  display: inline;
+}
+
+.black-background {
+  background-color: black;
+}
+
+.goldnordelish {
+  position: fixed;
+  bottom: 400px;
+  left: 400px;
+  background-color: yellow;
+}
+
+.caption {
+  font-size: 50%;
+}
+
+.hide {
+  opacity: 0;
+}
+
+.fadein {
+  animation-duration: 3s;
+  animation-name: fade;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.footnote,
+.citation {
+  padding: 10px 20px;
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  font-weight: 400;
+  font-size: 0.5em;
+}
+
+.p80 img {
+  width: 80%;
+}
+
+.p75 img {
+  width: 75%;
+}
+
+.p70 img {
+  width: 75%;
+}
+
+.p60 img {
+  width: 60%;
+}
+
+.p50 img {
+  width: 50%;
+}
+
+.p40 img {
+  width: 40%;
+}
+
+.p30 img {
+  width: 30%;
+}
+
+.p25 img {
+  width: 25%;
+}
+
+.p20 img {
+  width: 20%;
+}
+
+.p100 img {
+  width: 100%;
+  height: auto;
+}
+
+.white-text {
+  color: #ffffff;
+}
+
+.me {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+.bam-rust {
+  position: absolute;
+  top: 70px;
+  left: 300px;
+  width: 25%;
+  height: auto;
+}
+
+.whimper-rust {
+  position: absolute;
+  top: 125px;
+  left: 200px;
+  width: 10%;
+  height: auto;
+}
+
+.transparent {
+  opacity: 30%;
+}
+
+.daphnesqarrow {
+  position: absolute;
+  bottom: 100px;
+  left: 200px;
+  width: 50px;
+  transform: rotate(300deg) scale(250%);
+}
+
+.daphnesfarrow {
+  position: absolute;
+  bottom: 250px;
+  left: 150px;
+  width: 50px;
+  transform: rotate(300deg) scale(250%);
+}
