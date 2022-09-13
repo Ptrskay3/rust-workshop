@@ -2,7 +2,7 @@ class: center
 name: title
 count: false
 
-# Újraírtam Rustban..
+# Stop writing Rust
 
 .center[
 .p60[
@@ -14,56 +14,6 @@ count: false
 .citation[`https://github.com/Ptrskay3/rust-workshop`]
 
 ---
-
-# mozaBook XML
-
-.center[
-<img src="content/images/moza-xml.png" width="85%">
-]
-
----
-
-# Amire szükségünk van
-
-A webre ezt fel kell dolgoznunk JSON formátumra, úgy, hogy:
-
---
-
-- A sorrendet megtartjuk
-
-  - A .grey[`<painter>`] elemei közt
-
---
-
-- Ezeken az elemeken belüli tagek sorrendje nem érdekes
-
---
-
-.center[
-
-### Milyen elérhető megoldások vannak?
-
-]
-
----
-
-# XML parserek
-
-- [`xml2js`](https://www.npmjs.com/package/xml2js) (jelenlegi)
-
-- [`xml-js`](https://www.npmjs.com/package/xml-js)
-
-- [`fast-xml-parser`](https://www.npmjs.com/package/fast-xml-parser)
-
---
-.center[
-
-### [Egy rövid összehasonlítás..](https://github.com/Ptrskay3/XML-parser-diff)
-
-]
-
----
-
 # Rust
 
 - Relatíve fiatal, 1.0 verzió 2015-ben került kiadásra
@@ -78,8 +28,7 @@ A webre ezt fel kell dolgoznunk JSON formátumra, úgy, hogy:
 
 ???
 
-Próbálok egy reális képet adni arról, hogy milyen a Rust nyelv, milyen előnyei és
-hátrányai vannak, és miért gondolom, hogy érdemes lehet figyelni rá. Két dolog viszont nem lesz a workshopban: nem fogom folyton a C++-hez hasonlítani - egyrészt nem használtam eleget, hogy hiteles legyek, másrészt próbálom hallgatóság számára releváns témákat előtérbe helyezni. Ez a workshop nem tutorial, nem fogom megtaníani a Rustot. Néhány helyen mutatni fogok kódrészleteket, vagy néha egy kisebb élő kódolást, de ezek főleg a fő koncepciók megértésére szolgálnak.
+footnote
 
 ---
 
