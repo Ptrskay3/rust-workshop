@@ -14,7 +14,93 @@ count: false
 .citation[`https://github.com/Ptrskay3/rust-workshop`]
 
 ---
+
+template:intro
+
 # Rust
+
+.mid[
+
+- Relatíve fiatal, 1.0 verzió 2015-ben került kiadásra
+  ]
+
+---
+
+template:intro
+
+# Rust
+
+.mid[
+
+- Relatíve fiatal, 1.0 verzió 2015-ben került kiadásra
+- Open source, de a Rust Foundation mutatja az irányt
+  ]
+
+---
+
+template:intro
+
+# Rust
+
+.mid[
+
+- Relatíve fiatal, 1.0 verzió 2015-ben került kiadásra
+- Open source, de a Rust Foundation mutatja az irányt
+- Fordított (machine code)
+  ]
+
+---
+
+template:intro
+
+# Rust
+
+.mid[
+
+- Relatíve fiatal, 1.0 verzió 2015-ben került kiadásra
+- Open source, de a Rust Foundation mutatja az irányt
+- Fordított (machine code)
+- Systems language (kompetitor a C és C++ mellett)
+  ]
+
+---
+
+template:intro
+
+# Rust
+
+.mid[
+
+- Relatíve fiatal, 1.0 verzió 2015-ben került kiadásra
+- Open source, de a Rust Foundation mutatja az irányt
+- Fordított (machine code)
+- Systems language (kompetitor a C és C++ mellett)
+- Nincs GC és runtime
+  ]
+
+---
+
+template:intro
+
+# Rust
+
+.mid[
+
+- Relatíve fiatal, 1.0 verzió 2015-ben került kiadásra
+- Open source, de a Rust Foundation mutatja az irányt
+- Fordított (machine code)
+- Systems language (kompetitor a C és C++ mellett)
+- Nincs GC és runtime
+- Komplex statikus típus rendszer
+  ]
+
+---
+
+template:intro
+
+# Rust
+
+.mid[
 
 - Relatíve fiatal, 1.0 verzió 2015-ben került kiadásra
 - Open source, de a Rust Foundation mutatja az irányt
@@ -25,6 +111,7 @@ count: false
 - Szlogenek:
   - "Fast, reliable, productive - pick three"
   - "Fearless concurrency"
+    ]
 
 ???
 
