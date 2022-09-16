@@ -19,7 +19,7 @@ template:intro
 
 # Rust
 
-.mid[
+.lg[
 
 - Relatíve fiatal, 1.0 verzió 2015-ben került kiadásra
   ]
@@ -30,7 +30,7 @@ template:intro
 
 # Rust
 
-.mid[
+.lg[
 
 - Relatíve fiatal, 1.0 verzió 2015-ben került kiadásra
 - Open source, de a Rust Foundation mutatja az irányt
@@ -42,7 +42,7 @@ template:intro
 
 # Rust
 
-.mid[
+.lg[
 
 - Relatíve fiatal, 1.0 verzió 2015-ben került kiadásra
 - Open source, de a Rust Foundation mutatja az irányt
@@ -55,7 +55,7 @@ template:intro
 
 # Rust
 
-.mid[
+.lg[
 
 - Relatíve fiatal, 1.0 verzió 2015-ben került kiadásra
 - Open source, de a Rust Foundation mutatja az irányt
@@ -69,7 +69,7 @@ template:intro
 
 # Rust
 
-.mid[
+.lg[
 
 - Relatíve fiatal, 1.0 verzió 2015-ben került kiadásra
 - Open source, de a Rust Foundation mutatja az irányt
@@ -84,7 +84,7 @@ template:intro
 
 # Rust
 
-.mid[
+.lg[
 
 - Relatíve fiatal, 1.0 verzió 2015-ben került kiadásra
 - Open source, de a Rust Foundation mutatja az irányt
@@ -100,7 +100,7 @@ template:intro
 
 # Rust
 
-.mid[
+.lg[
 
 - Relatíve fiatal, 1.0 verzió 2015-ben került kiadásra
 - Open source, de a Rust Foundation mutatja az irányt
@@ -112,6 +112,26 @@ template:intro
   - "Fast, reliable, productive - pick three"
   - "Fearless concurrency"
     ]
+
+---
+
+template:intro
+
+# Rust
+
+.lg[
+
+- Relatíve fiatal, 1.0 verzió 2015-ben került kiadásra
+- Open source, de a Rust Foundation mutatja az irányt
+- Fordított (machine code)
+- Systems language (kompetitor a C és C++ mellett)
+- Nincs GC és runtime
+- Komplex statikus típus rendszer
+- Szlogenek:
+  - "Fast, reliable, productive - pick three"
+  - "Fearless concurrency"
+- Release 6 hetente (jelenleg 1.63.)
+  ]
 
 ???
 
@@ -405,11 +425,11 @@ template:it-works
 ```rust
 // C függvény hívása Rustból
 extern "C" {
-  fn c_abs(input: i32) -> i32;
+  fn abs(input: i32) -> i32;
 }
 
 fn main() {
-  println!("{}", unsafe { c_abs(-10) });
+  println!("{}", unsafe { abs(-10) });
 }
 
 // Rust függvény exportálása C-nek
@@ -618,7 +638,7 @@ template:drawbacks
 
 - A compiler egy elég hosszú pipeline-t futtat, ezért lassú, de az elmúlt évben sokat fejlődött.
 
-- Rust binary-k általában relatíve nagyobb méretűek
+- Rust binary-k általában relatíve nagyobb méretűek (strip - Rust 1.59.)
 
   - Főleg extra belefordított dolgok miatt, mint panic handler és debug szimbólumok,
     de van mód ezek kihagyására.
