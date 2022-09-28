@@ -463,6 +463,13 @@ template:it-works
 
 ---
 
+#### Async
+
+- Teljesen támogatott 2019 óta
+- Nincs beépített runtime
+  - Standard, battle-tested: [tokio](https://tokio.rs)
+- Async/await applikáció fejlesztésnél viszonylag egyszerű, library kódnál viszont komplex
+
 #### Zero cost FFI
 
 ```rust
