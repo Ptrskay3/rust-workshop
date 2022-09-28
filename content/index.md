@@ -2,7 +2,7 @@ class: center
 name: title
 count: false
 
-# Stop writing Rust
+# Újraírtam Rustban..
 
 .center[
 .p60[
@@ -108,10 +108,12 @@ template:intro
 - Systems language (kompetitor a C és C++ mellett)
 - Nincs GC és runtime
 - Komplex statikus típus rendszer
-- Szlogenek:
-  - "Fast, reliable, productive - pick three"
-  - "Fearless concurrency"
-    ]
+- Release 6 hetente (jelenleg 1.64.)
+  ]
+
+???
+
+footnote
 
 ---
 
@@ -127,10 +129,8 @@ template:intro
 - Systems language (kompetitor a C és C++ mellett)
 - Nincs GC és runtime
 - Komplex statikus típus rendszer
-- Szlogenek:
-  - "Fast, reliable, productive - pick three"
-  - "Fearless concurrency"
-- Release 6 hetente (jelenleg 1.63.)
+- Release 6 hetente (jelenleg 1.64.)
+- Stackoverflow survey: "Most loved language" 7. éve
   ]
 
 ???
@@ -139,10 +139,44 @@ footnote
 
 ---
 
-# Rust tulajdonságai
+template:intro
+
+# Rust
+
+.lg[
+
+- Relatíve fiatal, 1.0 verzió 2015-ben került kiadásra
+- Open source, de a Rust Foundation mutatja az irányt
+- Fordított (machine code)
+- Systems language (kompetitor a C és C++ mellett)
+- Nincs GC és runtime
+- Komplex statikus típus rendszer
+- Release 6 hetente (jelenleg 1.64.)
+- Stackoverflow survey: "Most loved language" 7. éve
+
+          ]
+
+  .p80[.center[
+  ![stackoverflow_rust_most_wanted](content/images/stackoverflow/rust_2022_want.png)
+  ]]
+  ???
+
+footnote
+
+---
+
+# Rust
+
+.center[
+![promises](content/images/promises.png)
+]
+
+---
+
+# Rust
 
 - Modern nyelv
-  - Effektív generikus típusok, Trait-ek
+  - Generikus típusok, Trait-ek
   - Funkcionális programozási elemek: Enum, Pattern matching, Closure
   - Tooling
 - Biztonság, a compiler és helyesség
@@ -347,13 +381,21 @@ fn one_more(n: i32) -> i32 {
 
 #### Biztonság, a compiler és helyesség
 
+.center[
+![possible_errors](content/images/possible_errors.png)
+]
+
+---
+
+#### Biztonság, a compiler és helyesség
+
 - Alapértelmezetten minden változó immutable
 
 ```rust
 let x = 5;
-x += 1; // Error
+x += 1; // ❌
 let mut y = 5;
-y += 1; // Ok
+y += 1; // ✅
 ```
 
 - Egyedi koncepciók:
@@ -382,7 +424,7 @@ enum Result<T, E> {
 
 ```rust
 // a num típusa itt Result<i32, ParseIntError>
-let num = "42".parse::<i32>();
+let num: i32 = "42".parse();
 
 // a ? operátor ekvivalens azzal, hogy hiba esetén térjen
 // vissza az Err variánssal, egyébént pedig az Ok-kal
@@ -420,6 +462,21 @@ template:it-works
 
 ---
 
+#### Makrók
+
+-
+- [serde](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=e4535da77ddb16c0fed9ca4b38d05013)
+
+---
+
+#### Makrók
+
+.p95[.center[
+![sqlx_macro](content/images/sqlx_macro.gif)
+]]
+
+---
+
 #### Zero cost FFI
 
 ```rust
@@ -447,8 +504,31 @@ pub extern "C" fn rust_abs(input: i32) -> i32 {
   - Python -> [PyO3](https://pyo3.rs/)
   - PHP -> [ext-php-rs](https://github.com/davidcole1340/ext-php-rs)
   - C++ -> [cxx](https://github.com/dtolnay/cxx)
+  - Elixir -> [rustler](https://github.com/rusterlium/rustler)
   - .. [és még sok más.](https://areweextendingyet.github.io/)
     ]
+
+---
+
+#### Még alacsonyabb szintű kontroll
+
+```rust
+use std::arch::asm;
+
+// Multiply x by 6 using shifts and adds
+let mut x: u64 = 4;
+unsafe {
+    asm!(
+        "mov {tmp}, {x}",
+        "shl {tmp}, 1",
+        "shl {x}, 2",
+        "add {x}, {tmp}",
+        x = inout(reg) x,
+        tmp = out(reg) _,
+    );
+}
+assert_eq!(x, 4 * 6);
+```
 
 ---
 
