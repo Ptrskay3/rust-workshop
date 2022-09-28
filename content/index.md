@@ -15,9 +15,13 @@ count: false
 
 ---
 
-template:intro
+name:intro
 
 # Rust
+
+---
+
+template:intro
 
 .lg[
 
@@ -27,8 +31,6 @@ template:intro
 ---
 
 template:intro
-
-# Rust
 
 .lg[
 
@@ -39,8 +41,6 @@ template:intro
 ---
 
 template:intro
-
-# Rust
 
 .lg[
 
@@ -52,8 +52,6 @@ template:intro
 ---
 
 template:intro
-
-# Rust
 
 .lg[
 
@@ -66,8 +64,6 @@ template:intro
 ---
 
 template:intro
-
-# Rust
 
 .lg[
 
@@ -81,8 +77,6 @@ template:intro
 ---
 
 template:intro
-
-# Rust
 
 .lg[
 
@@ -97,8 +91,6 @@ template:intro
 ---
 
 template:intro
-
-# Rust
 
 .lg[
 
@@ -118,8 +110,6 @@ footnote
 ---
 
 template:intro
-
-# Rust
 
 .lg[
 
@@ -140,8 +130,6 @@ footnote
 ---
 
 template:intro
-
-# Rust
 
 .lg[
 
@@ -299,23 +287,21 @@ match my_vector.find(|elem| elem.is_uppercase()) {
 #### Modern nyelv - Enum, Pattern matching, Closure
 
 ```rust
-use std::collections::HashMap;
-use std::time::Duration;
 
-enum ProgramState {
-    Running(HashMap<String, f64>),
-    Paused(Duration),
-    Stopped,
+enum GameEvent {
+    PlayerLost,
+    KeyPress(char),
+    Click { x: f32, y:f32 },
 }
 
-let state = ProgramState::Paused(Duration::from_secs(15));
+let event = GameEvent::KeyPress('q');
 
-match state {
-    ProgramState::Paused(duration) if duration.as_secs() > 10 => {
-        println!("Paused for at least 10s, exactly {duration:?}.")
-    }
-    ProgramState::Paused(_) => println!("Paused for less than 10s."),
-    _ => println!("It's definitely not paused."),
+match event {
+    GameEvent::PlayerLost => println!("Player lost"),
+    GameEvent::KeyPress('q' | 'Q') => println!("Q pressed"),
+    GameEvent::KeyPress(_) => println!("Other key pressed"),
+    GameEvent::Click { x, y } if x > 500. => println!("x is more than 500"),
+    _ => println!("x was less than 500"),
 }
 ```
 
@@ -532,7 +518,7 @@ assert_eq!(x, 4 * 6);
 
 ---
 
-#### Rust bár sokszor magas szintűnek érződik, de ...
+#### Bár sokszor magas szintűnek érződik, de ...
 
 ```rust
 impl<'w, 's, T: 'static> SystemParamFetch<'w, 's> for NonSendState<T> {
