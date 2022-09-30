@@ -287,7 +287,32 @@ match my_vector.find(|elem| elem.is_uppercase()) {
 #### Modern nyelv - Enum, Pattern matching, Closure
 
 ```rust
+enum GameEvent {
+    PlayerLost,
+    KeyPress(char),
+    Click { x: f32, y:f32 },
+}
+```
 
+---
+
+#### Modern nyelv - Enum, Pattern matching, Closure
+
+```rust
+enum GameEvent {
+    PlayerLost,
+    KeyPress(char),
+    Click { x: f32, y:f32 },
+}
+
+let event = GameEvent::KeyPress('q');
+```
+
+---
+
+#### Modern nyelv - Enum, Pattern matching, Closure
+
+```rust
 enum GameEvent {
     PlayerLost,
     KeyPress(char),
@@ -304,6 +329,40 @@ match event {
     _ => println!("x was less than 500"),
 }
 ```
+
+---
+
+#### Modern nyelv - Enum, Pattern matching, Closure
+
+Minden variánst kezelni kell:
+
+```rust
+match event {
+    GameEvent::PlayerLost => println!("Player lost"),
+    GameEvent::KeyPress('q' | 'Q') => println!("Q pressed"),
+    GameEvent::KeyPress(_) => println!("Other key pressed"),
+    GameEvent::Click { x, y } if x > 500. => println!("x is more than 500"),
+}
+```
+
+---
+
+#### Modern nyelv - Enum, Pattern matching, Closure
+
+Minden variánst kezelni kell:
+
+```rust
+match event {
+    GameEvent::PlayerLost => println!("Player lost"),
+    GameEvent::KeyPress('q' | 'Q') => println!("Q pressed"),
+    GameEvent::KeyPress(_) => println!("Other key pressed"),
+    GameEvent::Click { x, y } if x > 500. => println!("x is more than 500"),
+}
+```
+
+.center[
+![match_exhaustive](content/images/match_exhaustive.png)
+]
 
 ---
 
@@ -410,7 +469,7 @@ enum Result<T, E> {
 
 ```rust
 // a num típusa itt Result<i32, ParseIntError>
-let num: i32 = "42".parse();
+let num = "42".parse::<i32>();
 
 // a ? operátor ekvivalens azzal, hogy hiba esetén térjen
 // vissza az Err variánssal, egyébént pedig az Ok-kal
