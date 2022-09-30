@@ -334,7 +334,7 @@ match event {
 
 #### Modern nyelv - Enum, Pattern matching, Closure
 
-Minden variánst kezelni kell:
+Minden variánst kezelni kell
 
 ```rust
 match event {
@@ -349,7 +349,7 @@ match event {
 
 #### Modern nyelv - Enum, Pattern matching, Closure
 
-Minden variánst kezelni kell:
+Minden variánst kezelni kell
 
 ```rust
 match event {
@@ -361,7 +361,7 @@ match event {
 ```
 
 .center[
-![match_exhaustive](content/images/match_exhaustive.png)
+![match_exhaustive](content/images/match_exhaustive_light.png)
 ]
 
 ---
@@ -390,7 +390,7 @@ regex = { git = "https://github.com/rust-lang/regex", rev = "5197f21" }
 
 - Lint: Clippy - [Egy példa, ami nem rég hasznos volt számomra.](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=921f2441641cb7ac4830af1ccd7c75e8)
 
-- IDE integráció: Rust-Analyzer, IntelliJ Rust plugin
+- Language server: Rust-Analyzer
   ]
 
 ---
@@ -490,12 +490,22 @@ template:it-works
 #### Biztonság, a compiler és helyesség
 
 .moderate[A hibaüzenetek érthetőek, néha már majdnem code review szintűek, sokszor a megoldást is tartalmazzák:]
-.center[
-![error2](content/images/errormsg1.jpeg)
+.p85[.center[
+![error_num](content/images/error_num.png)
 ]
-.center[
-![error3](content/images/errormsg4.jpg)
 ]
+
+---
+
+#### Biztonság, a compiler és helyesség
+
+.center[
+![error_comp](content/images/error_comp_light.png)
+]
+.p85[
+.center[
+![error_greek](content/images/error_greek_light.png)
+]]
 
 ---
 
@@ -508,9 +518,6 @@ template:it-works
 ---
 
 #### Makrók
-
--
-- [serde](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=e4535da77ddb16c0fed9ca4b38d05013)
 
 ---
 
