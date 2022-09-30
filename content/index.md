@@ -469,6 +469,71 @@ template:it-works
 - Nincs beépített runtime
   - Standard, battle-tested: [tokio](https://tokio.rs)
 - Async/await applikáció fejlesztésnél viszonylag egyszerű, library kódnál viszont komplex
+  TODO: code?
+
+```rust
+async fn say_hello() {
+  println!("Hello");
+}
+
+#[tokio::main]
+async fn main() {
+  say_hello().await;
+}
+```
+
+---
+
+#### WebAssembly
+
+<br/><br/>
+
+- Új Assembly-szerű nyelv amit a böngésző végre tud hajtani megközelítőleg natív sebességgel
+- Már nem csak böngésző, van egyedülálló runtime
+  - Cloud megoldások ([wasmcloud](https://wasmcloud.com/), [wasmedge](https://wasmedge.org/))
+  - hasonló az AWS Lambda-hoz
+- Rust fordítható WebAssembly targetre
+
+---
+
+#### WebAssembly - frontend
+
+```rust
+use yew::prelude::*;
+
+#[function_component]
+fn App() -> Html {
+    let state = use_state(|| 0);
+
+    let increment_counter = {
+        let state = state.clone();
+        Callback::from(move |_| state.set(*state + 1))
+    };
+
+    html! {
+        <>
+            <p> {"current count: "} {*state} </p>
+            <button onclick={increment_counter}>{"+"}</button>
+        </>
+    }
+}
+
+fn main() {
+    yew::Renderer::<App>::new().render();
+}
+```
+
+---
+
+#### WebAssembly - frontend
+
+<br/><br/>
+<br/><br/>
+.center[
+![yew_render](content/images/yew.gif)
+]
+
+---
 
 #### Zero cost FFI
 
