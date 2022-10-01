@@ -517,6 +517,22 @@ template:it-works
 
 ---
 
+#### Biztonság, a compiler és helyesség
+
+.p95[.center[
+![crate_1](content/images/crates_long1.png)
+]]
+
+.p95[.center[
+![crate_2](content/images/crates_long2.png)
+]]
+
+.p95[.center[
+![crate_3](content/images/crates_long3.png)
+]]
+
+---
+
 #### Makrók
 
 ---
