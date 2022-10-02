@@ -263,90 +263,20 @@ let num = "42".parse::<i32>()?;
 
 #### Biztonság, a compiler és helyesség
 
-```rust
-fn get_user_id(session: Session) -> Result<Uuid, ApiError> {
-  session
-    .get::<Uuid>("user_id")
-    .ok_or(ApiError::Unauthorized)?
-}
-```
-
----
-
-#### Modern nyelv - Generikus típusok, Trait-ek
+A `Result<T, E>` és az `Option<T>` egy tipikus használat közben
 
 ```rust
-struct MyVector<T> {
-  // ...
-}
+fn get_username(db: &mut Db, user_id: Uuid) -> Result<String, ApiError> {
+  let user = sqlx::query_as!(
+      User,
+      "SELECT * FROM users WHERE user_id = $1",
+      user_id
+  )
+  .fetch_optional(&mut db) // Result<Option<User>, ApiError>
+  .await? // Option<User>
+  .ok_or(ApiError::NotFound)?; // User
 
-impl<T> MyVector<T> {
-    pub fn find<C>(&self, condition: C) -> Option<&T>
-    where
-        C: Fn(&T) -> bool,
-    {
-        for v in self {
-            if condition(v) {
-                return Some(v);
-            }
-        }
-        None
-    }
-}
-```
-
----
-
-#### Modern nyelv - Generikus típusok, Trait-ek
-
-.moderate[
-
-- Zero cost:
-  - A compiler külön optimalizálja minden `T` és `C` típusra, amikkel hívásra kerül.
-- `for v in self`:
-  - Iterator trait - trait-ekhez hozzárendelhető egy bizonyos viselkedés.
-- A Rust trait-ek nagyon hasonlóak más nyelvekbeli az interface-ekhez.
-  ]
-
-```rust
-trait Iterator {
-    type Item;
-    fn next(&mut self) -> Option<Self::Item>;
-}
-
-impl<T> Iterator for MyVector<T> {
-    type Item = T;
-    fn next(&mut self) -> Option<Self::Item> {
-        // ...
-    }
-}
-```
-
----
-
-#### Modern nyelv - Generikus típusok, Trait-ek
-
-.moderate[
-
-- Traitek implementálhatóak bármilyen típusra, akár beépítettekre is. (Orphan-rule)
-- Csak akkor használható, ha az adott trait scope-ba importálva van.
-  - ...vagyis nem szennyezi a namespace-t.
-    ]
-
-```rust
-trait Hello {
-  fn hello(&self);
-}
-
-impl Hello for bool {
-  fn hello(&self) {
-    println!("Hello!");
-  }
-}
-
-fn main() {
-  false.hello();
-  // output: Hello!
+  Ok(user.name)
 }
 ```
 
@@ -510,6 +440,90 @@ textObject.lineHeight =
 ]]
 
 ---
+
+#### Modern nyelv - Generikus típusok, Trait-ek
+
+```rust
+struct MyVector<T> {
+  // ...
+}
+
+impl<T> MyVector<T> {
+    pub fn find<C>(&self, condition: C) -> Option<&T>
+    where
+        C: Fn(&T) -> bool,
+    {
+        for v in self {
+            if condition(v) {
+                return Some(v);
+            }
+        }
+        None
+    }
+}
+```
+
+---
+
+#### Modern nyelv - Generikus típusok, Trait-ek
+
+.moderate[
+
+- Zero cost:
+  - A compiler külön optimalizálja minden `T` és `C` típusra, amikkel hívásra kerül.
+- `for v in self`:
+  - Iterator trait - trait-ekhez hozzárendelhető egy bizonyos viselkedés.
+- A Rust trait-ek nagyon hasonlóak más nyelvekbeli az interface-ekhez.
+  ]
+
+```rust
+trait Iterator {
+    type Item;
+    fn next(&mut self) -> Option<Self::Item>;
+}
+
+impl<T> Iterator for MyVector<T> {
+    type Item = T;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        // ...
+    }
+}
+```
+
+---
+
+#### Modern nyelv - Generikus típusok, Trait-ek
+
+.moderate[
+
+- Traitek implementálhatóak bármilyen típusra, akár beépítettekre is. (Orphan-rule)
+- Csak akkor használható, ha az adott trait scope-ba importálva van.
+  - ...vagyis nem szennyezi a namespace-t.
+    ]
+
+```rust
+trait Hello {
+  fn hello(&self);
+
+  fn hello_default(&self) {
+    println!("Hello default!");
+  }
+}
+
+impl Hello for bool {
+  fn hello(&self) {
+    println!("Hello!");
+  }
+}
+
+fn main() {
+  false.hello();
+  // output: Hello!
+  true.hello_default();
+  // output: Hello default!
+}
+```
 
 ---
 
