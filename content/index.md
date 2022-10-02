@@ -261,7 +261,7 @@ match letters.iter().find(|l| l.is_uppercase()) {
 
 #### Enum
 
-Nincsenek exception-ök, bármi ahol hiba történhet a `Result` típust adja vissza.
+Nincsenek exception-ök, bármi ahol hiba történhet a `Result` típust használjuk.
 
 ```rust
 enum Result<T, E> {
@@ -372,7 +372,7 @@ match event {
 
 ---
 
-#### Biztonság, a compiler és helyesség - TODO: misplaced slide
+#### Helyesség
 
 <br><br/>
 <br><br/>
@@ -398,6 +398,15 @@ textObject.lineHeight =
 
 #### Biztonság, a compiler és helyesség
 
+<br></br>
+.center[
+![error_lifetime](content/images/error_lifetime_light.png)
+]
+
+---
+
+#### Biztonság, a compiler és helyesség
+
 .center[
 ![error_comp](content/images/error_comp_light.png)
 ]
@@ -413,15 +422,6 @@ textObject.lineHeight =
 .center[
 ![error_greek](content/images/error_greek_light.png)
 ]]
-
----
-
-#### Biztonság, a compiler és helyesség
-
-<br></br>
-.center[
-![error_lifetime](content/images/error_lifetime_light.png)
-]
 
 ---
 
@@ -581,6 +581,46 @@ fn one_more(n: i32) -> i32 {
 }
 ````
 
+---
+
+#### Makrók
+
+<br><br/>
+
+- "Kód ami kódot ír/transzformál"
+
+---
+
+#### Makrók
+
+<br><br/>
+
+- "Kód ami kódot ír/transzformál"
+- Fordítás-időben az AST-n hajtódik végre
+
+---
+
+#### Makrók
+
+<br><br/>
+
+- "Kód ami kódot ír/transzformál"
+- Fordítás-időben az AST-n hajtódik végre
+- Kevesebb boilerplate + extra funkcionalitás
+
+---
+
+#### Makrók
+
+<br><br/>
+
+- "Kód ami kódot ír/transzformál"
+- Fordítás-időben az AST-n hajtódik végre
+- Kevesebb boilerplate + extra funkcionalitás
+- `println!`
+
+---
+
 #### Makrók
 
 <br><br/>
@@ -639,23 +679,29 @@ async fn main() -> std::io::Result<()> {
 
 ---
 
-#### Async # FIXME: talk about this in the previous slide, and delete?
-
-- Teljesen támogatott 2019 óta
-- Nincs beépített runtime
-  - Standard, battle-tested: [tokio](https://tokio.rs)
-- Async/await applikáció fejlesztésnél viszonylag egyszerű, library kódnál viszont komplex
-  TODO: code?
+#### Makrók
 
 ```rust
-async fn say_hello() {
-  println!("Hello");
+use structopt::StructOpt;
+
+#[derive(Debug, StructOpt)]
+#[structopt(name = "example", about = "An example of StructOpt usage.")]
+struct Opt {
+    #[structopt(short, long)]
+    debug: bool,
+
+    #[structopt(short = "v", long = "velocity", default_value = "42")]
+    speed: f64,
+
+    #[structopt(name = "FILE", required_if("speed", "43"))]
+    file_name: Option<String>,
 }
 
-#[tokio::main]
-async fn main() {
-  say_hello().await;
+fn main() {
+    let opt = Opt::from_args();
+    println!("{:?}", opt);
 }
+
 ```
 
 ---
@@ -665,7 +711,26 @@ async fn main() {
 <br/><br/>
 
 - Új Assembly-szerű nyelv amit a böngésző végre tud hajtani megközelítőleg natív sebességgel
-- Már nem csak böngésző, van egyedülálló runtime
+
+---
+
+#### WebAssembly
+
+<br/><br/>
+
+- Új Assembly-szerű nyelv amit a böngésző végre tud hajtani megközelítőleg natív sebességgel
+- Már nem csak böngésző, hanem van egyedülálló runtime is
+  - Cloud megoldások ([wasmcloud](https://wasmcloud.com/), [wasmedge](https://wasmedge.org/))
+  - hasonló az AWS Lambda-hoz
+
+---
+
+#### WebAssembly
+
+<br/><br/>
+
+- Új Assembly-szerű nyelv amit a böngésző végre tud hajtani megközelítőleg natív sebességgel
+- Már nem csak böngésző, hanem van egyedülálló runtime is
   - Cloud megoldások ([wasmcloud](https://wasmcloud.com/), [wasmedge](https://wasmedge.org/))
   - hasonló az AWS Lambda-hoz
 - Rust fordítható WebAssembly targetre
@@ -748,6 +813,7 @@ pub extern "C" fn rust_abs(input: i32) -> i32 {
 
 ```rust
 use std::arch::asm;
+
 fn main() {
     // Multiply x by 6 using shifts and adds
   let mut x: u64 = 4;
@@ -854,7 +920,7 @@ template:drawbacks
 
 - Nincsenek előre buildelt library-k, többek között a generikus típusok miatt.
 
-  - Mindig a forráskódból kell buildelni a library-t.
+  - Library-t mindig a forráskódból kell buildelni.
     ]
 
 ---
@@ -866,9 +932,9 @@ template:drawbacks
 
 - Nincsenek előre buildelt library-k, többek között a generikus típusok miatt.
 
-  - Mindig a forráskódból kell buildelni a library-t.
+  - Library-t mindig a forráskódból kell buildelni.
 
-- A compiler egy elég hosszú pipeline-t futtat, ezért lassú, de az elmúlt évben sokat fejlődött.
+- A compiler egy elég hosszú pipeline-t futtat, ezért lassú.
   ]
 
 ---
@@ -880,14 +946,11 @@ template:drawbacks
 
 - Nincsenek előre buildelt library-k, többek között a generikus típusok miatt.
 
-  - Mindig a forráskódból kell buildelni a library-t.
+  - Library-t mindig a forráskódból kell buildelni.
 
-- A compiler egy elég hosszú pipeline-t futtat, ezért lassú, de az elmúlt évben sokat fejlődött.
+- A compiler egy elég hosszú pipeline-t futtat, ezért lassú.
 
 - Rust binary-k általában relatíve nagyobb méretűek (strip since 1.59.)
-
-  - Főleg extra belefordított dolgok miatt, mint panic handler és debug szimbólumok,
-    de van mód ezek kihagyására.
 
   ]
 
@@ -900,16 +963,13 @@ template:drawbacks
 
 - Nincsenek előre buildelt library-k, többek között a generikus típusok miatt.
 
-  - Mindig a forráskódból kell buildelni a library-t.
+  - Library-t mindig a forráskódból kell buildelni.
 
-- A compiler egy elég hosszú pipeline-t futtat, ezért lassú, de az elmúlt évben sokat fejlődött.
+- A compiler egy elég hosszú pipeline-t futtat, ezért lassú.
 
 - Rust binary-k általában relatíve nagyobb méretűek (strip since 1.59.)
 
-  - Főleg extra belefordított dolgok miatt, mint panic handler és debug szimbólumok,
-    de van mód ezek kihagyására.
-
-- Relatíve fiatal, így néhány library nem annyira kiforrott.
+- Relatíve fiatal, így néhány library nem annyira kiforrott. (Non-tech enterprise)
   ]
 
 ---
@@ -921,45 +981,112 @@ template:drawbacks
 
 - Nincsenek előre buildelt library-k, többek között a generikus típusok miatt.
 
-  - Mindig a forráskódból kell buildelni a library-t.
+  - Library-t mindig a forráskódból kell buildelni.
 
-- A compiler egy elég hosszú pipeline-t futtat, ezért lassú, de az elmúlt évben sokat fejlődött.
+- A compiler egy elég hosszú pipeline-t futtat, ezért lassú.
 
 - Rust binary-k általában relatíve nagyobb méretűek (strip since 1.59.)
 
-  - Főleg extra belefordított dolgok miatt, mint panic handler és debug szimbólumok,
-    de van mód ezek kihagyására.
-
-- Relatíve fiatal, így néhány library nem annyira kiforrott.
+- Relatíve fiatal, így néhány library nem annyira kiforrott. (Non-tech enterprise)
 
 - Az std minimális, de vannak "blessed" library-k, amiket Rust core team fejleszt.
   ]
 
 ---
 
-### Hol használják?
+template:drawbacks
+.mid[
 
-.moderate[
+- Rust nem OO.
+
+- Nincsenek előre buildelt library-k, többek között a generikus típusok miatt.
+
+  - Library-t mindig a forráskódból kell buildelni.
+
+- A compiler egy elég hosszú pipeline-t futtat, ezért lassú.
+
+- Rust binary-k általában relatíve nagyobb méretűek (strip since 1.59.)
+
+- Relatíve fiatal, így néhány library nem annyira kiforrott. (Non-tech enterprise)
+
+- Az std minimális, de vannak "blessed" library-k, amiket Rust core team fejleszt.
+
+- A compiler hibaüzenetek kiválók, kivéve ha async vagy (nem jól megírt) makró területre tévedünk.
+  ]
+
+---
+
+template:drawbacks
+.mid[
+
+- Rust nem OO.
+
+- Nincsenek előre buildelt library-k, többek között a generikus típusok miatt.
+
+  - Library-t mindig a forráskódból kell buildelni.
+
+- A compiler egy elég hosszú pipeline-t futtat, ezért lassú.
+
+- Rust binary-k általában relatíve nagyobb méretűek (strip since 1.59.)
+
+- Relatíve fiatal, így néhány library nem annyira kiforrott. (Non-tech enterprise)
+
+- Az std minimális, de vannak "blessed" library-k, amiket Rust core team fejleszt.
+
+- A compiler hibaüzenetek kiválók, kivéve ha async vagy (nem jól megírt) makró területre tévedünk.
+
+- `build.rs` sandboxing hiánya
+  ]
+
+---
+
+template:drawbacks
+.mid[
+
+- Rust nem OO.
+
+- Nincsenek előre buildelt library-k, többek között a generikus típusok miatt.
+
+  - Library-t mindig a forráskódból kell buildelni.
+
+- A compiler egy elég hosszú pipeline-t futtat, ezért lassú.
+
+- Rust binary-k általában relatíve nagyobb méretűek (strip since 1.59.)
+
+- Relatíve fiatal, így néhány library nem annyira kiforrott. (Non-tech enterprise)
+
+- Az std minimális, de vannak "blessed" library-k, amiket Rust core team fejleszt.
+
+- A compiler hibaüzenetek kiválók, kivéve ha async vagy (nem jól megírt) makró területre tévedünk.
+
+- `build.rs` sandboxing hiánya
+
+- néhány pattern körülményesebb, mint kéne lennie
+  ]
+
+---
+
+### Néhány Rust projekt
 
 - Beágyazott rendszerek, OS: [Redox OS](https://www.redox-os.org/)
 - Blockchain: [Solana](https://solana.com/)
 - Cloud infrastruktúra: [AWS Firecracker](https://firecracker-microvm.github.io/), [AWS Bottlerocket](https://aws.amazon.com/bottlerocket/)
 - Adatbázis: [SurrealDB](https://surrealdb.com/)
-- Játékfejlesztés: [Bevy](https://bevyengine.org/), [Amethyst](https://github.com/amethyst/amethyst)
+- GUI: [egui](https://github.com/emilk/egui)
+- Játékfejlesztés: [Bevy](https://bevyengine.org/), [Fyrox](https://fyrox.rs)
 - Back-end: [Actix-web](https://actix.rs/), [Axum](https://github.com/tokio-rs/axum), [Rocket](https://rocket.rs/)
 - Front-end: [Yew](https://yew.rs/), [Sycamore](https://sycamore-rs.netlify.app/), [Dioxus](https://dioxuslabs.com/)
 - CLI: [Exa](https://github.com/ogham/exa), [Ripgrep](https://github.com/BurntSushi/ripgrep)
 - Egyéb: [Tauri](https://github.com/tauri-apps/tauri), [MeiliSearch](https://github.com/meilisearch/MeiliSearch), [swc](https://github.com/swc-project/swc), [JetBrains Fleet](https://blog.jetbrains.com/fleet/2022/01/fleet-below-deck-part-i-architecture-overview/)
-  ]
 
 ---
 
-### Learning materials
+### Oktatóanyagok
 
 - Bevezető:
   - ["The Book"](https://doc.rust-lang.org/book/)
   - [Learn Rust With Entirely Too Many Linked Lists](https://rust-unofficial.github.io/too-many-lists/)
-  - [Rustlings - Feladatok](https://github.com/rust-lang/rustlings/)
+  - [Rustlings](https://github.com/rust-lang/rustlings/)
   - [Rust by Example](https://doc.rust-lang.org/stable/rust-by-example/)
 - Intermediate/Advanced
   - [Zero To Production in Rust](https://www.lpalmieri.com/)
@@ -969,3 +1096,14 @@ template:drawbacks
   - [The Little Book of Rust Macros](https://danielkeep.github.io/tlborm/book/index.html)
   - [David Tolnay - Procedural Macro Workshop](https://github.com/dtolnay/proc-macro-workshop)
   - [Jon Gjengset - Advanced Rust streams](https://www.youtube.com/c/JonGjengset)
+
+---
+
+<br><br/>
+<br><br/>
+<br><br/>
+.center[
+
+# Q&A
+
+]
