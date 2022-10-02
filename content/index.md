@@ -120,7 +120,7 @@ template:intro
 - Nincs GC és runtime
 - Komplex statikus típus rendszer
 - Release 6 hetente (jelenleg 1.64.)
-- Stackoverflow survey: "Most loved language" 7. éve
+- StackOverflow survey: "Most loved language" 7. éve
   ]
 
 ???
@@ -513,7 +513,7 @@ template:it-works
 
 .moderate[A hibaüzenetek érthetőek, néha már majdnem code review szintűek, sokszor a megoldást is tartalmazzák:]
 .p85[.center[
-![error_num](content/images/error_num.png)
+![error_num](content/images/error_num_light.png)
 ]
 ]
 
@@ -533,9 +533,22 @@ template:it-works
 
 #### Biztonság, a compiler és helyesség
 
+<br><br/>
+
 .p95[.center[
-![error4](content/images/error_long.png)
+![sleep](content/images/sleep.png)
 ]]
+
+---
+
+#### Biztonság, a compiler és helyesség
+
+<br><br/>
+.p95[.center[
+![sleep](content/images/sleep.png)
+]]
+
+(jk)
 
 ---
 
@@ -556,6 +569,26 @@ template:it-works
 ---
 
 #### Makrók
+
+<br><br/>
+
+- "Kód ami kódot ír/transzformál"
+- Fordítás-időben az AST-n hajtódik végre
+- Kevesebb boilerplate + extra funkcionalitás
+- `println!`
+- Általában komplex implementálni
+
+---
+
+#### Makrók
+
+<br><br/>
+
+- "Kód ami kódot ír/transzformál"
+- Fordítás-időben az AST-n hajtódik végre
+- Kevesebb boilerplate + extra funkcionalitás
+- `println!`
+- Általában komplex implementálni (nagyon)
 
 ---
 
@@ -593,7 +626,7 @@ async fn main() -> std::io::Result<()> {
 
 ---
 
-#### Async
+#### Async # FIXME: talk about this in the previous slide, and delete?
 
 - Teljesen támogatott 2019 óta
 - Nincs beépített runtime
@@ -687,8 +720,8 @@ pub extern "C" fn rust_abs(input: i32) -> i32 {
 .moderate[
 
 - Más nyelvekbe integrálhatóság
-  - Node.js -> [Neon](https://neon-bindings.com/)
-  - JavaScript -> [Wasm-bindgen](https://github.com/rustwasm/wasm-bindgen)
+  - Node.js -> [Neon](https://neon-bindings.com/), [N-API](https://napi.rs/)
+  - JavaScript -> [wasm-bindgen](https://github.com/rustwasm/wasm-bindgen)
   - Python -> [PyO3](https://pyo3.rs/)
   - PHP -> [ext-php-rs](https://github.com/davidcole1340/ext-php-rs)
   - C++ -> [cxx](https://github.com/dtolnay/cxx)
@@ -702,47 +735,20 @@ pub extern "C" fn rust_abs(input: i32) -> i32 {
 
 ```rust
 use std::arch::asm;
-
-// Multiply x by 6 using shifts and adds
-let mut x: u64 = 4;
-unsafe {
+fn main() {
+    // Multiply x by 6 using shifts and adds
+  let mut x: u64 = 4;
+  unsafe {
     asm!(
-        "mov {tmp}, {x}",
-        "shl {tmp}, 1",
-        "shl {x}, 2",
-        "add {x}, {tmp}",
-        x = inout(reg) x,
-        tmp = out(reg) _,
-    );
-}
-assert_eq!(x, 4 * 6);
-```
-
----
-
-#### Bár sokszor magas szintűnek érződik, de ...
-
-```rust
-impl<'w, 's, T: 'static> SystemParamFetch<'w, 's> for NonSendState<T> {
-    type Item = NonSend<'w, T>;
-    #[inline]
-    unsafe fn get_param(
-        state: &'s mut Self,
-        system_meta: &SystemMeta,
-        world: &'w World,
-        change_tick: u32,
-    ) -> Self::Item {
-        world.validate_non_send_access::<T>();
-        let column = world
-            .get_populated_resource_column(state.component_id)
-            .unwrap_or_else(|| panic!("Non-send resource does not exist"));
-        NonSend {
-            value: &*column.get_data_ptr().cast::<T>().as_ptr(),
-            ticks: column.get_ticks_unchecked(0).clone(),
-            last_change_tick: system_meta.last_change_tick,
-            change_tick,
-        }
-    }
+      "mov {tmp}, {x}",
+          "shl {tmp}, 1",
+          "shl {x}, 2",
+          "add {x}, {tmp}",
+          x = inout(reg) x,
+          tmp = out(reg) _,
+      );
+  }
+  assert_eq!(x, 4 * 6);
 }
 ```
 
@@ -800,7 +806,7 @@ template: lets-get-real
 
 ---
 
-#### Ez csak a felszín egy része volt..
+#### Roadmap
 
 .center[
 ![iceberg](content/images/iceberg.webp)
