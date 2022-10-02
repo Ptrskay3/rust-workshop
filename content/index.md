@@ -161,6 +161,28 @@ footnote
 
 ---
 
+# Rust - recent articles
+
+[Programming languages endorsed for server-side use at Meta](https://engineering.fb.com/2022/07/27/developer-tools/programming-languages-endorsed-for-server-side-use-at-meta/)
+
+> - For performance-sensitive back-end services, we encourage C++ and Rust. Rust is a new addition to this list. There’s a rapidly increasing Rust footprint in our products and services, and we’re committing to Rust long-term and welcome early adopters.
+
+> - For CLI tools, we recommend Rust. This is a new recommendation for this year.
+
+---
+
+# Rust - recent articles
+
+- Linux: [Linus Torvalds: Rust will go into Linux 6.1](https://www.zdnet.com/article/linus-torvalds-rust-will-go-into-linux-6-1/)
+- AWS: [Sustainability with Rust](https://aws.amazon.com/blogs/opensource/sustainability-with-rust/)
+- Google: [Rust in the Android platform](https://security.googleblog.com/2021/04/rust-in-android-platform.html), [How Android is using Rust](https://www.youtube.com/watch?v=SU8clrSVWtI)
+- Microsoft: [Announcing Rust for Windows v0.9](https://blogs.windows.com/windowsdeveloper/2021/05/06/announcing-rust-for-windows-v0-9/), [Rust Is the Industry’s ‘Best Chance’ at Safe Systems Programming](https://thenewstack.io/microsoft-rust-is-the-industrys-best-chance-at-safe-systems-programming/)
+- Discord: [Why Discord is switching from Go to Rust](https://discord.com/blog/why-discord-is-switching-from-go-to-rust)
+- Volvo: [Why Rust is actually good for your car](https://medium.com/volvo-cars-engineering/why-volvo-thinks-you-should-have-rust-in-your-car-4320bd639e09)
+- Cloudera: [How we built Pingora, the proxy that connects Cloudflare to the Internet](https://blog.cloudflare.com/how-we-built-pingora-the-proxy-that-connects-cloudflare-to-the-internet/)
+
+---
+
 # Rust
 
 - Modern nyelv
@@ -539,9 +561,35 @@ template:it-works
 
 #### Makrók
 
+<br><br/>
+
 .p95[.center[
 ![sqlx_macro](content/images/sqlx_macro.gif)
 ]]
+
+---
+
+#### Makrók
+
+```rust
+use actix_web::{get, web, App, HttpServer, Responder};
+
+#[get("/hello/{name}")]
+async fn greet(name: web::Path<String>) -> impl Responder {
+    format!("Hello {name}!")
+}
+
+#[tokio::main]
+async fn main() -> std::io::Result<()> {
+    HttpServer::new(|| {
+        App::new()
+            .service(greet)
+    })
+    .bind(("127.0.0.1", 8080))?
+    .run()
+    .await
+}
+```
 
 ---
 
@@ -817,7 +865,7 @@ template:drawbacks
 
 - A compiler egy elég hosszú pipeline-t futtat, ezért lassú, de az elmúlt évben sokat fejlődött.
 
-- Rust binary-k általában relatíve nagyobb méretűek
+- Rust binary-k általában relatíve nagyobb méretűek (strip since 1.59.)
 
   - Főleg extra belefordított dolgok miatt, mint panic handler és debug szimbólumok,
     de van mód ezek kihagyására.
@@ -837,7 +885,7 @@ template:drawbacks
 
 - A compiler egy elég hosszú pipeline-t futtat, ezért lassú, de az elmúlt évben sokat fejlődött.
 
-- Rust binary-k általában relatíve nagyobb méretűek
+- Rust binary-k általában relatíve nagyobb méretűek (strip since 1.59.)
 
   - Főleg extra belefordított dolgok miatt, mint panic handler és debug szimbólumok,
     de van mód ezek kihagyására.
@@ -858,7 +906,7 @@ template:drawbacks
 
 - A compiler egy elég hosszú pipeline-t futtat, ezért lassú, de az elmúlt évben sokat fejlődött.
 
-- Rust binary-k általában relatíve nagyobb méretűek (strip - Rust 1.59.)
+- Rust binary-k általában relatíve nagyobb méretűek (strip since 1.59.)
 
   - Főleg extra belefordított dolgok miatt, mint panic handler és debug szimbólumok,
     de van mód ezek kihagyására.
@@ -874,12 +922,13 @@ template:drawbacks
 
 .moderate[
 
-- Beágyazott rendszerek, OS
-- Blockchain
+- Beágyazott rendszerek, OS: [Redox OS](https://www.redox-os.org/)
+- Blockchain: [Solana](https://solana.com/)
 - Cloud infrastruktúra: [AWS Firecracker](https://firecracker-microvm.github.io/), [AWS Bottlerocket](https://aws.amazon.com/bottlerocket/)
+- Adatbázis: [SurrealDB](https://surrealdb.com/)
 - Játékfejlesztés: [Bevy](https://bevyengine.org/), [Amethyst](https://github.com/amethyst/amethyst)
-- Backend: [Actix-web](https://actix.rs/), [Axum](https://github.com/tokio-rs/axum), [Rocket](https://rocket.rs/)
-- Frontend: [Yew](https://yew.rs/), [Sycamore](https://sycamore-rs.netlify.app/), [Seed](https://seed-rs.org/)
+- Back-end: [Actix-web](https://actix.rs/), [Axum](https://github.com/tokio-rs/axum), [Rocket](https://rocket.rs/)
+- Front-end: [Yew](https://yew.rs/), [Sycamore](https://sycamore-rs.netlify.app/), [Dioxus](https://dioxuslabs.com/)
 - CLI: [Exa](https://github.com/ogham/exa), [Ripgrep](https://github.com/BurntSushi/ripgrep)
 - Egyéb: [Tauri](https://github.com/tauri-apps/tauri), [MeiliSearch](https://github.com/meilisearch/MeiliSearch), [swc](https://github.com/swc-project/swc), [JetBrains Fleet](https://blog.jetbrains.com/fleet/2022/01/fleet-below-deck-part-i-architecture-overview/)
   ]
