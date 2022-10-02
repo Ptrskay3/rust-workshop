@@ -220,18 +220,41 @@ enum Option<T> {
 ```
 
 ```rust
-match my_vector.find(|elem| elem.is_uppercase()) {
-  Some(letter) => {
-    // találtunk egy nagybetűt, letter néven elérhető
-  }
-  None => {
-    // nincs nagybetű
-  }
+let maybe_number = Some(99);
+let maybe_another_number = None;
+
+maybe_number.unwrap_or(0); // 99
+maybe_another_number.unwrap_or(0); // 0
+```
+
+---
+
+#### Modern nyelv - Enum, Pattern matching, Closure
+
+.moderate[
+
+- Az `enum` egy centrális feature a nyelvben.
+- Az enumok tartalmazhatnak valódi adatot, nem csak konstansokat.
+  ]
+
+```rust
+enum Option<T> {
+    Some(T),
+    None,
+}
+```
+
+```rust
+let letters = ['a', 'b', 'C', 'd', 'E'];
+
+if let Some(letter) = letters.iter().find(|l| l.is_uppercase()) {
+  // találtunk nagybetűt, letter néven elérhető
 }
 
 // vagy ekvivalens módon
-if let Some(letter) = my_vector.find(|elem| elem.is_uppercase()) {
-  // találtunk egy nagybetűt, letter néven elérhető
+match letters.iter().find(|l| l.is_uppercase()) {
+  Some(letter) => {}, // találtunk nagybetűt, letter néven elérhető
+  None => {}, // nem volt nagybetű
 }
 
 ```
@@ -241,7 +264,7 @@ if let Some(letter) = my_vector.find(|elem| elem.is_uppercase()) {
 #### Biztonság, a compiler és helyesség
 
 - Explicit: nincsenek rejtett side-effektek, extra memória allokációk
-- Nincsenek exception-ök, bármi ahol hiba történet a `Result` típust adja vissza.
+- Nincsenek exception-ök, bármi ahol hiba történhet a `Result` típust adja vissza.
 
 ```rust
 enum Result<T, E> {
@@ -263,32 +286,20 @@ let num = "42".parse::<i32>()?;
 
 #### Biztonság, a compiler és helyesség
 
-A `Result<T, E>` és az `Option<T>` egy tipikus használat közben
+A `Result<T, E>` és az `Option<T>` egy valós példán:
 
 ```rust
-fn get_username(db: &mut Db, user_id: Uuid) -> Result<String, ApiError> {
+async fn get_username(db: &mut Db, id: Uuid) -> Result<String, ApiError> {
   let user = sqlx::query_as!(
       User,
       "SELECT * FROM users WHERE user_id = $1",
-      user_id
+      id
   )
-  .fetch_optional(&mut db) // Result<Option<User>, ApiError>
+  .fetch_optional(&mut db) // Result<Option<User>, Error>
   .await? // Option<User>
   .ok_or(ApiError::NotFound)?; // User
 
   Ok(user.name)
-}
-```
-
----
-
-#### Modern nyelv - Enum, Pattern matching, Closure
-
-```rust
-enum GameEvent {
-    PlayerLost,
-    KeyPress(char),
-    Click { x: f32, y:f32 },
 }
 ```
 
@@ -444,23 +455,26 @@ textObject.lineHeight =
 #### Modern nyelv - Generikus típusok, Trait-ek
 
 ```rust
-struct MyVector<T> {
-  // ...
+struct Point<T> {
+    x: T,
+    y: T,
 }
 
-impl<T> MyVector<T> {
-    pub fn find<C>(&self, condition: C) -> Option<&T>
-    where
-        C: Fn(&T) -> bool,
-    {
-        for v in self {
-            if condition(v) {
-                return Some(v);
-            }
-        }
-        None
+impl<T> Point<T>
+where
+    T: std::fmt::Display,
+{
+    pub fn show(&self) {
+        println!("({}, {})", self.x, self.y);
     }
 }
+
+fn main() {
+    let integer_point = Point { x: 5, y: 10 };
+    let float_point = Point { x: 1.0, y: 4.0 };
+    float_point.show(); // (1.0, 4.0)
+}
+
 ```
 
 ---
@@ -469,38 +483,10 @@ impl<T> MyVector<T> {
 
 .moderate[
 
-- Zero cost:
-  - A compiler külön optimalizálja minden `T` és `C` típusra, amikkel hívásra kerül.
-- `for v in self`:
-  - Iterator trait - trait-ekhez hozzárendelhető egy bizonyos viselkedés.
 - A Rust trait-ek nagyon hasonlóak más nyelvekbeli az interface-ekhez.
+- Traitek implementálhatóak bármilyen típusra, akár beépítettekre is.
+- Orphan rule
   ]
-
-```rust
-trait Iterator {
-    type Item;
-    fn next(&mut self) -> Option<Self::Item>;
-}
-
-impl<T> Iterator for MyVector<T> {
-    type Item = T;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        // ...
-    }
-}
-```
-
----
-
-#### Modern nyelv - Generikus típusok, Trait-ek
-
-.moderate[
-
-- Traitek implementálhatóak bármilyen típusra, akár beépítettekre is. (Orphan-rule)
-- Csak akkor használható, ha az adott trait scope-ba importálva van.
-  - ...vagyis nem szennyezi a namespace-t.
-    ]
 
 ```rust
 trait Hello {
@@ -518,10 +504,8 @@ impl Hello for bool {
 }
 
 fn main() {
-  false.hello();
-  // output: Hello!
-  true.hello_default();
-  // output: Hello default!
+  false.hello(); // output: Hello!
+  true.hello_default(); // output: Hello default!
 }
 ```
 
