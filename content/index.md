@@ -183,7 +183,7 @@ footnote
 
 ---
 
-#### Egyedi koncepciók, biztonság, compiler és helyesség
+#### Egyedi koncepciók
 
 - Alapértelmezetten minden változó immutable
 
@@ -194,17 +194,15 @@ let mut y = 5;
 y += 1; // ✅
 ```
 
-- Egyedi koncepciók:
-  - Ownership: [Minden változónak egy tulajdonosa van](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=6a1416d377e9b6a85ac3df58e85c7d31)
-  - Borrow checker
-    - [Minden változóra teljesülnie kell, hogy egyidőben](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=482f77f3f0f7c523dfd6578bad01fe32)
-      - bármennyi immutable referencia
-      - csak egyetlen mutable referencia
-  - [Thread-safety](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=58a3d153c6cc96f1ed4c1ca67d78661b)
+- Ownership: Minden változónak egy tulajdonosa van
+- Borrow checker: Egyidőben
+  - bármennyi immutable referencia
+  - csak egyetlen mutable referencia
+- Thread-safety
 
 ---
 
-#### Modern nyelv - Enum, Pattern matching, Closure
+#### Enum
 
 .moderate[
 
@@ -229,7 +227,7 @@ maybe_another_number.unwrap_or(0); // 0
 
 ---
 
-#### Modern nyelv - Enum, Pattern matching, Closure
+#### Enum
 
 .moderate[
 
@@ -261,10 +259,9 @@ match letters.iter().find(|l| l.is_uppercase()) {
 
 ---
 
-#### Biztonság, a compiler és helyesség
+#### Enum
 
-- Explicit: nincsenek rejtett side-effektek, extra memória allokációk
-- Nincsenek exception-ök, bármi ahol hiba történhet a `Result` típust adja vissza.
+Nincsenek exception-ök, bármi ahol hiba történhet a `Result` típust adja vissza.
 
 ```rust
 enum Result<T, E> {
@@ -284,7 +281,7 @@ let num = "42".parse::<i32>()?;
 
 ---
 
-#### Biztonság, a compiler és helyesség
+#### Enum
 
 A `Result<T, E>` és az `Option<T>` egy valós példán:
 
@@ -305,7 +302,7 @@ async fn get_username(db: &mut Db, id: Uuid) -> Result<String, ApiError> {
 
 ---
 
-#### Modern nyelv - Enum, Pattern matching, Closure
+#### Pattern matching
 
 ```rust
 enum GameEvent {
@@ -319,7 +316,7 @@ let event = GameEvent::KeyPress('q');
 
 ---
 
-#### Modern nyelv - Enum, Pattern matching, Closure
+#### Pattern matching
 
 ```rust
 enum GameEvent {
@@ -341,7 +338,7 @@ match event {
 
 ---
 
-#### Modern nyelv - Enum, Pattern matching, Closure
+#### Pattern matching
 
 Minden variánst kezelni kell
 
@@ -356,7 +353,7 @@ match event {
 
 ---
 
-#### Modern nyelv - Enum, Pattern matching, Closure
+#### Pattern matching
 
 Minden variánst kezelni kell
 
@@ -404,10 +401,27 @@ textObject.lineHeight =
 .center[
 ![error_comp](content/images/error_comp_light.png)
 ]
+
+---
+
+#### Biztonság, a compiler és helyesség
+
+.center[
+![error_comp](content/images/error_comp_light.png)
+]
 .p85[
 .center[
 ![error_greek](content/images/error_greek_light.png)
 ]]
+
+---
+
+#### Biztonság, a compiler és helyesség
+
+<br></br>
+.center[
+![error_lifetime](content/images/error_lifetime_light.png)
+]
 
 ---
 
