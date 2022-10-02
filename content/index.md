@@ -183,17 +183,6 @@ footnote
 
 ---
 
-# Rust
-
-- Modern nyelv
-  - Generikus típusok, Trait-ek
-  - Funkcionális programozási elemek: Enum, Pattern matching, Closure
-  - Tooling
-- Biztonság, a compiler és helyesség
-- Zero cost FFI
-
----
-
 #### Egyedi koncepciók, biztonság, compiler és helyesség
 
 - Alapértelmezetten minden változó immutable
@@ -212,6 +201,75 @@ y += 1; // ✅
       - bármennyi immutable referencia
       - csak egyetlen mutable referencia
   - [Thread-safety](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=58a3d153c6cc96f1ed4c1ca67d78661b)
+
+---
+
+#### Modern nyelv - Enum, Pattern matching, Closure
+
+.moderate[
+
+- Az `enum` egy centrális feature a nyelvben.
+- Az enumok tartalmazhatnak valódi adatot, nem csak konstansokat.
+  ]
+
+```rust
+enum Option<T> {
+    Some(T),
+    None,
+}
+```
+
+```rust
+match my_vector.find(|elem| elem.is_uppercase()) {
+  Some(letter) => {
+    // találtunk egy nagybetűt, letter néven elérhető
+  }
+  None => {
+    // nincs nagybetű
+  }
+}
+
+// vagy ekvivalens módon
+if let Some(letter) = my_vector.find(|elem| elem.is_uppercase()) {
+  // találtunk egy nagybetűt, letter néven elérhető
+}
+
+```
+
+---
+
+#### Biztonság, a compiler és helyesség
+
+- Explicit: nincsenek rejtett side-effektek, extra memória allokációk
+- Nincsenek exception-ök, bármi ahol hiba történet a `Result` típust adja vissza.
+
+```rust
+enum Result<T, E> {
+  Ok(T),
+  Err(E),
+}
+```
+
+```rust
+// a num típusa itt Result<i32, ParseIntError>
+let num = "42".parse::<i32>();
+
+// a ? operátor (nagyjából) ekvivalens azzal, hogy hiba esetén térjen
+// vissza az Err variánssal, egyébént pedig az Ok-kal
+let num = "42".parse::<i32>()?;
+```
+
+---
+
+#### Biztonság, a compiler és helyesség
+
+```rust
+fn get_user_id(session: Session) -> Result<Uuid, ApiError> {
+  session
+    .get::<Uuid>("user_id")
+    .ok_or(ApiError::Unauthorized)?
+}
+```
 
 ---
 
@@ -270,7 +328,7 @@ impl<T> Iterator for MyVector<T> {
 
 .moderate[
 
-- Traitek implementálhatóak bármilyen típusra, akár beépítettekre is.
+- Traitek implementálhatóak bármilyen típusra, akár beépítettekre is. (Orphan-rule)
 - Csak akkor használható, ha az adott trait scope-ba importálva van.
   - ...vagyis nem szennyezi a namespace-t.
     ]
@@ -289,39 +347,6 @@ impl Hello for bool {
 fn main() {
   false.hello();
   // output: Hello!
-}
-```
-
----
-
-#### Modern nyelv - Enum, Pattern matching, Closure
-
-.moderate[
-
-- Az `enum` egy centrális feature a nyelvben.
-- Az enumok tartalmazhatnak valódi adatot, nem csak konstansokat.
-  ]
-
-```rust
-enum Option<T> {
-    Some(T),
-    None,
-}
-```
-
-```rust
-if let Some(letter) = my_vector.find(|elem| elem.is_uppercase()) {
-  // találtunk egy nagybetűt, letter néven elérhető
-}
-
-// vagy ekvivalens módon
-match my_vector.find(|elem| elem.is_uppercase()) {
-  Some(letter) => {
-    // találtunk egy nagybetűt, letter néven elérhető
-  }
-  None => {
-    // nincs nagybetű
-  }
 }
 ```
 
@@ -420,40 +445,6 @@ textObject.lineHeight =
     mozaBook.defaultLineSpacing[parsedText.textFamily]) /
     maxFontSize || 1.0) * lineSpacingRatio;
 ```
-
----
-
-name: it-works
-
-#### Biztonság, a compiler és helyesség
-
-- Explicit: nincsenek rejtett side-effektek, extra memória allokációk
-- Nincsenek exception-ök, bármi ahol hiba történet a `Result` típust adja vissza.
-
-```rust
-enum Result<T, E> {
-  Ok(T),
-  Err(E),
-}
-```
-
-```rust
-// a num típusa itt Result<i32, ParseIntError>
-let num = "42".parse::<i32>();
-
-// a ? operátor ekvivalens azzal, hogy hiba esetén térjen
-// vissza az Err variánssal, egyébént pedig az Ok-kal
-let num = "42".parse::<i32>()?;
-```
-
----
-
-template:it-works
-
-.center[
-
-- _"If it compiles, it works."_
-  ]
 
 ---
 
@@ -959,10 +950,10 @@ template:drawbacks
   - [Rustlings - Feladatok](https://github.com/rust-lang/rustlings/)
   - [Rust by Example](https://doc.rust-lang.org/stable/rust-by-example/)
 - Intermediate/Advanced
-  - [Zero To Production in Rust](https://www.lpalmieri.com/) <-- Backend, Actix-Web
+  - [Zero To Production in Rust](https://www.lpalmieri.com/)
   - [Rust and WebAssembly](https://rustwasm.github.io/docs/book/)
   - [Writing an OS in Rust](https://os.phil-opp.com/)
   - [The Rustonomicon - Unsafe Rust](https://doc.rust-lang.org/stable/nomicon/)
   - [The Little Book of Rust Macros](https://danielkeep.github.io/tlborm/book/index.html)
   - [David Tolnay - Procedural Macro Workshop](https://github.com/dtolnay/proc-macro-workshop)
-  - [Jon Gjengset - Főleg advanced Rust streamek](https://www.youtube.com/c/JonGjengset)
+  - [Jon Gjengset - Advanced Rust streams](https://www.youtube.com/c/JonGjengset)
