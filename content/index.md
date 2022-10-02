@@ -140,7 +140,7 @@ template:intro
 - Nincs GC és runtime
 - Komplex statikus típus rendszer
 - Release 6 hetente (jelenleg 1.64.)
-- Stackoverflow survey: "Most loved language" 7. éve
+- StackOverflow survey: "Most loved language" 7. éve
 
           ]
 
@@ -191,6 +191,27 @@ footnote
   - Tooling
 - Biztonság, a compiler és helyesség
 - Zero cost FFI
+
+---
+
+#### Egyedi koncepciók, biztonság, compiler és helyesség
+
+- Alapértelmezetten minden változó immutable
+
+```rust
+let x = 5;
+x += 1; // ❌
+let mut y = 5;
+y += 1; // ✅
+```
+
+- Egyedi koncepciók:
+  - Ownership: [Minden változónak egy tulajdonosa van](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=6a1416d377e9b6a85ac3df58e85c7d31)
+  - Borrow checker
+    - [Minden változóra teljesülnie kell, hogy egyidőben](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=482f77f3f0f7c523dfd6578bad01fe32)
+      - bármennyi immutable referencia
+      - csak egyetlen mutable referencia
+  - [Thread-safety](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=58a3d153c6cc96f1ed4c1ca67d78661b)
 
 ---
 
@@ -388,90 +409,17 @@ match event {
 
 ---
 
-#### Modern nyelv - Tooling
+#### Biztonság, a compiler és helyesség - TODO: misplaced slide
 
-.moderate[
+<br><br/>
+<br><br/>
 
-- Build tool és dependency manager: Cargo
-
-  `Cargo.toml`:
-
-```toml
-[package]
-version = "0.1.0"
-# ...
-
-[dependencies]
-neon = { version = "0.9.1", optional = true, features = ["napi-6"] }
-serde = "1.0"
-converter_derive = { path = "../converter_derive" }
-regex = { git = "https://github.com/rust-lang/regex", rev = "5197f21" }
+```ts
+textObject.lineHeight =
+  ((parseFloat(paragraphStyles[0]?.lineSpacing) *
+    mozaBook.defaultLineSpacing[parsedText.textFamily]) /
+    maxFontSize || 1.0) * lineSpacingRatio;
 ```
-
-- Formázás: Rustfmt
-
-- Lint: Clippy - [Egy példa, ami nem rég hasznos volt számomra.](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=921f2441641cb7ac4830af1ccd7c75e8)
-
-- Language server: Rust-Analyzer
-  ]
-
----
-
-#### Modern nyelv - Tooling
-
-.moderate[
-
-- Tesztelés:
-
-```rust
-#[test]
-fn it_works() {
-  assert_eq!(1 + 1, 2);
-}
-```
-
-- Dokumentáció: Rust-doc, [docs.rs](https://docs.rs/tokio/latest/tokio/)
-  ]
-
-````rust
-/// This is the documentation for the item below.
-/// Code blocks are automatically treated and run as integration tests.
-/// ```
-/// assert_eq!(one_more(7), 8);
-/// ```
-fn one_more(n: i32) -> i32 {
-  n + 1
-}
-````
-
----
-
-#### Biztonság, a compiler és helyesség
-
-.center[
-![possible_errors](content/images/possible_errors.png)
-]
-
----
-
-#### Biztonság, a compiler és helyesség
-
-- Alapértelmezetten minden változó immutable
-
-```rust
-let x = 5;
-x += 1; // ❌
-let mut y = 5;
-y += 1; // ✅
-```
-
-- Egyedi koncepciók:
-  - Ownership: [Minden változónak egy tulajdonosa van](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=6a1416d377e9b6a85ac3df58e85c7d31)
-  - Borrow checker
-    - [Minden változóra teljesülnie kell, hogy egyidőben](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=482f77f3f0f7c523dfd6578bad01fe32)
-      - bármennyi immutable referencia
-      - csak egyetlen mutable referencia
-  - [Thread-safety](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=58a3d153c6cc96f1ed4c1ca67d78661b)
 
 ---
 
@@ -548,7 +496,11 @@ template:it-works
 ![sleep](content/images/sleep.png)
 ]]
 
+.center[
+
 (jk)
+
+]
 
 ---
 
@@ -567,6 +519,64 @@ template:it-works
 ]]
 
 ---
+
+---
+
+#### Modern nyelv - Tooling
+
+.moderate[
+
+- Build tool és dependency manager: Cargo
+
+  `Cargo.toml`:
+
+```toml
+[package]
+version = "0.1.0"
+# ...
+
+[dependencies]
+neon = { version = "0.9.1", optional = true, features = ["napi-6"] }
+serde = "1.0"
+converter_derive = { path = "../converter_derive" }
+regex = { git = "https://github.com/rust-lang/regex", rev = "5197f21" }
+```
+
+- Formázás: Rustfmt
+
+- Lint: Clippy - [Egy példa, ami nem rég hasznos volt számomra.](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=921f2441641cb7ac4830af1ccd7c75e8)
+
+- Language server: Rust-Analyzer
+  ]
+
+---
+
+#### Modern nyelv - Tooling
+
+.moderate[
+
+- Tesztelés:
+
+```rust
+#[test]
+fn it_works() {
+  assert_eq!(1 + 1, 2);
+}
+```
+
+- Dokumentáció: Rust-doc, [docs.rs](https://docs.rs/tokio/latest/tokio/)
+  ]
+
+````rust
+/// This is the documentation for the item below.
+/// Code blocks are automatically treated and run as integration tests.
+/// ```
+/// assert_eq!(one_more(7), 8);
+/// ```
+fn one_more(n: i32) -> i32 {
+  n + 1
+}
+````
 
 #### Makrók
 
