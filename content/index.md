@@ -547,7 +547,7 @@ regex = { git = "https://github.com/rust-lang/regex", rev = "5197f21" }
 
 - Formázás: Rustfmt
 
-- Lint: Clippy - [Egy példa, ami nem rég hasznos volt számomra.](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=921f2441641cb7ac4830af1ccd7c75e8)
+- Lint: [Clippy](https://rust-lang.github.io/rust-clippy/master/)
 
 - Language server: Rust-Analyzer
   ]
