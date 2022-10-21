@@ -1100,12 +1100,12 @@ template:drawbacks
 - Blockchain: [Solana](https://solana.com/)
 - Cloud infrastruktúra: [AWS Firecracker](https://firecracker-microvm.github.io/), [AWS Bottlerocket](https://aws.amazon.com/bottlerocket/)
 - Adatbázis: [SurrealDB](https://surrealdb.com/)
-- GUI: [egui](https://github.com/emilk/egui)
+- GUI: [egui](https://github.com/emilk/egui), [iced](https://github.com/iced-rs/iced)
 - Játékfejlesztés: [Bevy](https://bevyengine.org/), [Fyrox](https://fyrox.rs)
 - Back-end: [Actix-web](https://actix.rs/), [Axum](https://github.com/tokio-rs/axum), [Rocket](https://rocket.rs/)
 - Front-end: [Yew](https://yew.rs/), [Sycamore](https://sycamore-rs.netlify.app/), [Dioxus](https://dioxuslabs.com/)
 - CLI: [Exa](https://github.com/ogham/exa), [Ripgrep](https://github.com/BurntSushi/ripgrep)
-- Egyéb: [Tauri](https://github.com/tauri-apps/tauri), [MeiliSearch](https://github.com/meilisearch/MeiliSearch), [swc](https://github.com/swc-project/swc), [JetBrains Fleet](https://blog.jetbrains.com/fleet/2022/01/fleet-below-deck-part-i-architecture-overview/)
+- Egyéb: [Deno](https://deno.land/),[Tauri](https://github.com/tauri-apps/tauri), [MeiliSearch](https://github.com/meilisearch/MeiliSearch), [swc](https://github.com/swc-project/swc), [JetBrains Fleet](https://blog.jetbrains.com/fleet/2022/01/fleet-below-deck-part-i-architecture-overview/)
 
 ---
 
