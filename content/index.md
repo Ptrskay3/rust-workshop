@@ -58,7 +58,7 @@ template:intro
 - Relatíve fiatal, 1.0 verzió 2015-ben került kiadásra
 - Open source, de a Rust Foundation mutatja az irányt
 - Fordított (machine code)
-- Systems language (kompetitor a C és C++ mellett)
+- Systems language (C, C++)
   ]
 
 ---
@@ -70,7 +70,7 @@ template:intro
 - Relatíve fiatal, 1.0 verzió 2015-ben került kiadásra
 - Open source, de a Rust Foundation mutatja az irányt
 - Fordított (machine code)
-- Systems language (kompetitor a C és C++ mellett)
+- Systems language (C, C++)
 - Nincs GC és runtime
   ]
 
@@ -83,7 +83,7 @@ template:intro
 - Relatíve fiatal, 1.0 verzió 2015-ben került kiadásra
 - Open source, de a Rust Foundation mutatja az irányt
 - Fordított (machine code)
-- Systems language (kompetitor a C és C++ mellett)
+- Systems language (C, C++)
 - Nincs GC és runtime
 - Komplex statikus típus rendszer
   ]
@@ -97,7 +97,7 @@ template:intro
 - Relatíve fiatal, 1.0 verzió 2015-ben került kiadásra
 - Open source, de a Rust Foundation mutatja az irányt
 - Fordított (machine code)
-- Systems language (kompetitor a C és C++ mellett)
+- Systems language (C, C++)
 - Nincs GC és runtime
 - Komplex statikus típus rendszer
 - Release 6 hetente (jelenleg 1.64.)
@@ -116,7 +116,7 @@ template:intro
 - Relatíve fiatal, 1.0 verzió 2015-ben került kiadásra
 - Open source, de a Rust Foundation mutatja az irányt
 - Fordított (machine code)
-- Systems language (kompetitor a C és C++ mellett)
+- Systems language (C, C++)
 - Nincs GC és runtime
 - Komplex statikus típus rendszer
 - Release 6 hetente (jelenleg 1.64.)
@@ -136,7 +136,7 @@ template:intro
 - Relatíve fiatal, 1.0 verzió 2015-ben került kiadásra
 - Open source, de a Rust Foundation mutatja az irányt
 - Fordított (machine code)
-- Systems language (kompetitor a C és C++ mellett)
+- Systems language (C, C++)
 - Nincs GC és runtime
 - Komplex statikus típus rendszer
 - Release 6 hetente (jelenleg 1.64.)
@@ -180,6 +180,36 @@ footnote
 - Discord: [Why Discord is switching from Go to Rust](https://discord.com/blog/why-discord-is-switching-from-go-to-rust)
 - Volvo: [Why Rust is actually good for your car](https://medium.com/volvo-cars-engineering/why-volvo-thinks-you-should-have-rust-in-your-car-4320bd639e09)
 - Cloudera: [How we built Pingora, the proxy that connects Cloudflare to the Internet](https://blog.cloudflare.com/how-we-built-pingora-the-proxy-that-connects-cloudflare-to-the-internet/)
+
+---
+
+#### Performance
+
+- 🚫 runtime
+- 🚫 garbage collector
+- ✅ "zero cost abstractions"
+
+```rust
+let mut results = Vec::new();
+
+for line in contents.lines() {
+  if line.contains(query) {
+      results.push(line);
+  }
+}
+```
+
+```rust
+contents
+  .lines()
+  .filter(|line| line.contains(query))
+  .collect()
+```
+
+```
+test bench_search_for  ... bench:  19,620,300 ns/iter (+/- 915,700)
+test bench_search_iter ... bench:  19,234,900 ns/iter (+/- 657,200)
+```
 
 ---
 
@@ -379,9 +409,8 @@ match event {
 
 ```ts
 textObject.lineHeight =
-  ((parseFloat(paragraphStyles[0]?.lineSpacing) *
-    mozaBook.defaultLineSpacing[parsedText.textFamily]) /
-    maxFontSize || 1.0) * lineSpacingRatio;
+  ((parseFloat(paragraphStyles[0]?.lineSpacing) * defaultLineSpacing[textFamily]) / maxFontSize ||
+    1.0) * lineSpacingRatio;
 ```
 
 ---
@@ -801,7 +830,6 @@ pub extern "C" fn rust_abs(input: i32) -> i32 {
   - Node.js -> [Neon](https://neon-bindings.com/), [N-API](https://napi.rs/)
   - JavaScript -> [wasm-bindgen](https://github.com/rustwasm/wasm-bindgen)
   - Python -> [PyO3](https://pyo3.rs/)
-  - PHP -> [ext-php-rs](https://github.com/davidcole1340/ext-php-rs)
   - C++ -> [cxx](https://github.com/dtolnay/cxx)
   - Elixir -> [rustler](https://github.com/rusterlium/rustler)
   - .. [és még sok más.](https://areweextendingyet.github.io/)
